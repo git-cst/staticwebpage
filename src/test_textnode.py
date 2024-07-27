@@ -10,7 +10,6 @@ from textnode import (
     text_type_text
 )
 
-
 class TestTextNode(unittest.TestCase):
     def test_eq(self):
         node = TextNode("This is a text node", text_type_bold)
