@@ -24,9 +24,22 @@ class TestHTMLNode(unittest.TestCase):
         node2 = HTMLNode(tag_italicize, "italic text")
         self.assertNotEqual(node, node2)
 
+    def test_props_to_html(self):
+        props_test = {
+            "href": "https://www.google.com", 
+            "target": "_blank"
+        }
+        node = HTMLNode(tag_hyperlink, "Link to google", None, props_test)
+        props_to_html =  node.props_to_html()
+        self.assertEqual(props_to_html, 'href="https://www.google.com" target="_blank"')
+
     def test_repr(self):
-        node = HTMLNode(tag_bold, "this is code", None, {"code: python3 main.py"})
-        self.assertEqual(node, repr(node))
+        prop_test = {
+            "code:" "python3 main.py"
+            "test:" "Test"
+        }
+        node = HTMLNode(tag_code, "this is code", None, prop_test)
+        self.assertEqual(f'HTMLNode(<code>, this is code, None, {prop_test})', repr(node))
 
 if __name__ == "__main__":
     unittest.main()
