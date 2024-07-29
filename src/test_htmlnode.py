@@ -56,10 +56,13 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual(None, leafnode.children)
         self.assertEqual('href="https://www.google.com" target="_blank"', leafnode.props)
 
+    def test_leaf_no_tag(self):
+        leafnode = LeafNode(None, "No tags")
+        self.assertEqual("No tags", leafnode.to_html())
+
     def test_leaf_to_html(self):
         leafnode = LeafNode(tag_hyperlink, "My GitHub!", {"href": "https://github.com/git-cst"})
         self.assertEqual('<a href="https://github.com/git-cst">My GitHub!</a>', leafnode.to_html())
-
 
 if __name__ == "__main__":
     unittest.main()
