@@ -1,14 +1,13 @@
-tag_div = "<div>"
-tag_span = "<span>"
-tag_hyperlink = "<a>"
-tag_bold = "<b>"
-tag_code = "<code>"
-tag_image = "<img>"
+tag_paragraph = "p"
+tag_div = "div"
+tag_span = "span"
+tag_hyperlink = "a"
+tag_bold = "b"
+tag_code = "code"
+tag_image = "img"
 tag_text = "text"
-tag_italicize = "<i>"
-tag_heading1 = "<h1>"
-tag_heading2 = "<h2>"
-tag_heading3 = "<h3>"
+tag_italicize = "i"
+tag_heading = "h"
 
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -40,10 +39,14 @@ class HTMLNode:
         return f"HTMLNode({self.tag}, {self.value}, children: {self.children}, {self.props})"
     
 class LeafNode(HTMLNode):
-    def __init__(self, tag, value, props):
-        super().__init__(tag, value, props)
-        if value == None:
-            raise ValueError("Leaf nodes must have a value")
-    
+    def __init__(self, tag, value, props=None):
+        super().__init__(tag, value, children=None, props=props)
+
     def to_html(self):
-        return ""
+        if self.value == None:
+            raise ValueError("Leaf nodes must have a value")
+        if self.tag == None:
+            return f"{self.value}"
+        if self.props == None:
+            return f"<{self.tag}>{self.value}</{self.tag}>"
+        return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
