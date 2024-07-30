@@ -1,21 +1,27 @@
 from textnode import TextNode, text_type_bold
-from htmlnode import HTMLNode, tag_bold, LeafNode, tag_hyperlink, ParentNode
+from htmlnode import HTMLNode, tag_bold, LeafNode, tag_hyperlink, ParentNode, tag_paragraph, tag_div
 
 def main():
     testParentNode = ParentNode(
-        tag_bold, 
+        tag_paragraph, 
         [
             LeafNode("b", "Bold text"),
             LeafNode(None, "Normal text"),
             LeafNode("i", "italic text"),
             LeafNode(None, "Normal text")
         ],
-    ) 
-    print(testParentNode.__repr__())
-    print(testParentNode.children)
-    print(len(testParentNode.children))
-    for i in range(len(testParentNode.children)):
-        print(testParentNode.children[i].to_html())
+    )
+
+    testLeaf = LeafNode(tag_bold, "This is bold!")
+    testLeaf2 = LeafNode(tag_hyperlink, "My GitHub!", {"href": "https://github.com/git-cst"})
+    testNestedParentNode = ParentNode(tag_div, 
+                                      [
+                                          testLeaf,
+                                          testLeaf2,
+                                          testParentNode
+                                      ])
+    
+    print(testNestedParentNode.to_html())
 
 main()
 

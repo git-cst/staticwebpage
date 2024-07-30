@@ -8,6 +8,7 @@ tag_image = "img"
 tag_text = "text"
 tag_italicize = "i"
 tag_heading = "h"
+tag_div = "div"
 
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
@@ -51,21 +52,21 @@ class LeafNode(HTMLNode):
             return f"<{self.tag}>{self.value}</{self.tag}>"
         return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
     
-    def __repr__(self):
-        return f"LeafNode({self.tag}, {self.value}, {self.props})"
-    
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props=None):
         super().__init__(tag, value=None, children=children, props=props)
-
+        
     def to_html(self):
-        parenthtml = ""
         if self.tag == None:
             raise ValueError("Parent nodes must have a tag")
         if self.children == None:
             raise ValueError("Parent nodes must have children")
-        for i in range(len(self.children)):
-            if self.children[i].children == None:
-                pass
-            pass
-        return parenthtml
+        
+        parenthtml = ""
+        for child in self.children:
+            if isinstance(child,LeafNode) or isinstance(child, ParentNode):
+                parenthtml += child.to_html()
+
+        if self.props:
+            return f"<{self.tag} {self.props_to_html()}>{parenthtml}</{self.tag}>"
+        return f"<{self.tag}>{parenthtml}</{self.tag}>"

@@ -15,6 +15,7 @@ from htmlnode import (
 )
 
 class TestHTMLNode(unittest.TestCase):
+    #GENERAL HTML NODE TESTING
     def test_eq(self):
         node = HTMLNode(tag_text, "This is a text line", None)
         node2 = HTMLNode(tag_text, "This is a text line", None)
@@ -49,6 +50,7 @@ class TestHTMLNode(unittest.TestCase):
         node = HTMLNode(tag_code, "this is code", None, prop_test)
         self.assertEqual(f'HTMLNode(code, this is code, children: None, {prop_test})', repr(node))
 
+    #LEAF NODE TESTING
     def test_leaf_values(self):
         leafnode = LeafNode(tag_bold, "This is bold!", 'href="https://www.google.com" target="_blank"')
         self.assertEqual("This is bold!", leafnode.value)
@@ -63,6 +65,9 @@ class TestHTMLNode(unittest.TestCase):
     def test_leaf_to_html(self):
         leafnode = LeafNode(tag_hyperlink, "My GitHub!", {"href": "https://github.com/git-cst"})
         self.assertEqual('<a href="https://github.com/git-cst">My GitHub!</a>', leafnode.to_html())
+
+    #PARENT NODE TESTING
+    
 
 if __name__ == "__main__":
     unittest.main()
