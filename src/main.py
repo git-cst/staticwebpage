@@ -21,7 +21,17 @@ def main():
                                           testParentNode
                                       ])
     
+    testNested2ParentNode = ParentNode(tag_div, 
+                            [
+                                testNestedParentNode,
+                                testLeaf,
+                                testLeaf2,
+                                testParentNode
+                            ])
+
+    print(testParentNode.to_html())
     print(testNestedParentNode.to_html())
+    print(testNested2ParentNode.to_html())
 
 main()
 

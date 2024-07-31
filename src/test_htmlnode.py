@@ -3,6 +3,7 @@ import unittest
 from htmlnode import (
     HTMLNode,
     LeafNode,
+    ParentNode,
     tag_hyperlink,
     tag_bold,
     tag_code,
@@ -11,7 +12,8 @@ from htmlnode import (
     tag_text,
     tag_heading,
     tag_span,
-    tag_div
+    tag_div,
+    tag_paragraph
 )
 
 class TestHTMLNode(unittest.TestCase):
@@ -67,7 +69,60 @@ class TestHTMLNode(unittest.TestCase):
         self.assertEqual('<a href="https://github.com/git-cst">My GitHub!</a>', leafnode.to_html())
 
     #PARENT NODE TESTING
-    
+    def test_parent_no_tag(self):
+        testParentNode = ParentNode(
+            None, 
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text")
+            ],
+        )
+        with self.assertRaises(ValueError) as context:
+            testParentNode.to_html()
+        self.assertEqual("Parent nodes must have a tag", str(context.exception))
+
+    def test_parent_no_children(self):
+        testParentNode = ParentNode(tag_paragraph, None, )
+        with self.assertRaises(ValueError) as context:
+            testParentNode.to_html()
+        self.assertEqual("Parent nodes must have children", str(context.exception))
+
+    def test_parent_to_html(self):
+        testLeaf = LeafNode(tag_bold, "This is bold!")
+        testLeaf2 = LeafNode(tag_hyperlink, "My GitHub!", {"href": "https://github.com/git-cst"})
+        testParentNode = ParentNode(
+                                tag_paragraph, 
+                                [
+                                    LeafNode("b", "Bold text"),
+                                    LeafNode(None, "Normal text"),
+                                    LeafNode("i", "italic text"),
+                                    LeafNode(None, "Normal text")
+                                ])
+
+        testParent2Node = ParentNode(tag_paragraph,[LeafNode("b", "Bold text")])
+        testNestedParentNode = ParentNode(
+                                        tag_div, 
+                                        [
+                                            testLeaf,
+                                            testLeaf2,
+                                            testParentNode
+                                        ])
+        
+        testNested2ParentNode = ParentNode(
+                                        tag_div, 
+                                        [
+                                            testNestedParentNode,
+                                            testLeaf,
+                                            testLeaf2,
+                                            testParentNode
+                                        ])
+
+        self.assertEqual('<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>',testParentNode.to_html())
+        self.assertEqual('<p><b>Bold text</b></p>', testParent2Node.to_html())
+        self.assertEqual('<div><b>This is bold!</b><a href="https://github.com/git-cst">My GitHub!</a><p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p></div>', testNestedParentNode.to_html())
+        self.assertEqual('<div><div><b>This is bold!</b><a href="https://github.com/git-cst">My GitHub!</a><p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p></div><b>This is bold!</b><a href="https://github.com/git-cst">My GitHub!</a><p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p></div>', testNested2ParentNode.to_html())
 
 if __name__ == "__main__":
     unittest.main()
