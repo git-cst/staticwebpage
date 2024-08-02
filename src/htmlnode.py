@@ -1,3 +1,4 @@
+#HTML TAGS
 tag_paragraph = "p"
 tag_div = "div"
 tag_span = "span"
@@ -8,7 +9,6 @@ tag_image = "img"
 tag_text = "text"
 tag_italicize = "i"
 tag_heading = "h"
-tag_div = "div"
 
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
