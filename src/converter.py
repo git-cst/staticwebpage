@@ -1,6 +1,16 @@
 from textnode import *
+import regex as re
 
 accepted_delimiters = ['`', '*', '**']
+
+def get_text_type(delimiter):
+    match delimiter:
+        case '`':
+            return text_type_code
+        case '*':
+            return text_type_italic
+        case '**':
+            return text_type_bold
 
 def split_nodes_delimiter(old_nodes, delimiter):
     if delimiter not in accepted_delimiters:
@@ -21,12 +31,17 @@ def split_nodes_delimiter(old_nodes, delimiter):
         else:
             new_nodes.append(node) 
     return new_nodes
+        
+def extract_image_props(text):
+    image_list = []
+    images = re.findall('!\[(.*?)\]\((.*?)\)', text)
+    for image in images:
+        image_list.append(image)
+    return image_list
 
-def get_text_type(delimiter):
-    match delimiter:
-        case '`':
-            return text_type_code
-        case '*':
-            return text_type_italic
-        case '**':
-            return text_type_bold
+def extract_link_props(text):
+    link_list = []
+    links = re.findall('\[(.*?)\]\((.*?)\)', text)
+    for link in links:
+        link_list.append(link)
+    return link_list

@@ -4,6 +4,7 @@ from converter import *
 from textnode import *
 
 class TestConverter(unittest.TestCase):
+    #SPLIT_ON_DELIMITER TESTING
     def test_split_on_code(self):
         test_textnode = TextNode("this `is` text", text_type_text)
         test_textnode2 = TextNode("this is code", text_type_code)
@@ -43,6 +44,16 @@ class TestConverter(unittest.TestCase):
         with self.assertRaises(Exception) as context:
             split_nodes_delimiter(list_of_testtextnodes,"/")
         self.assertEqual("Invalid markdown syntax", str(context.exception))
+
+    #IMAGE EXTRACTION TESTING
+    def test_image_extraction(self):
+        test_text = '![Excellent](https://imgur.com/gallery/excellent-mr-burns-hzaJ4Hn)'
+        self.assertEqual([("Excellent", "https://imgur.com/gallery/excellent-mr-burns-hzaJ4Hn")], extract_image_props(test_text))
+
+    #LINK EXTRACTION TESTING
+    def test_link_extraction(self):
+        test_text = '[D\'oh](https://imgur.com/gallery/d-d-d-doh-Y4a1MRU)'
+        self.assertEqual([("D'oh", "https://imgur.com/gallery/d-d-d-doh-Y4a1MRU")], extract_link_props(test_text))
 
 if __name__ == "__main__":
     unittest.main()
