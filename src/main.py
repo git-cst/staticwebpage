@@ -3,11 +3,15 @@ from htmlnode import HTMLNode, tag_bold, LeafNode, tag_hyperlink, ParentNode, ta
 from converter import *
 
 def main():
-    temp_textnode = TextNode("this *is* text", text_type_text)
-    temp_textnode2 = TextNode("**this is text**", text_type_bold)
-    list_of_textnodes = [temp_textnode, temp_textnode2]
+    test_textnode = TextNode("this is code", text_type_code)
+    test_textnode_code = TextNode("this `is` text", text_type_text)
+    test_textnode_bold = TextNode("The word **is** is bold", text_type_text)
+    test_textnode_italic = TextNode("The word *is* is italic", text_type_text)
+    list_of_testtextnodes = [test_textnode, test_textnode_italic, test_textnode_bold, test_textnode_code]
+    split_nodes = []
+    split_nodes = split_nodes_delimiter(split_nodes_delimiter(split_nodes_delimiter(list_of_testtextnodes, "**"),"*"),"`")
 
-    print(split_nodes_delimiter(list_of_textnodes, "*", text_type_bold))
+    print(split_nodes)
 
 main()
 
