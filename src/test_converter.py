@@ -1,6 +1,6 @@
 import unittest
 
-from converter import *
+from inline_converter import *
 from textnode import *
 
 class TestConverter(unittest.TestCase):
