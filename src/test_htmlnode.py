@@ -52,7 +52,7 @@ class TestHTMLNode(unittest.TestCase):
         node = HTMLNode(tag_code, "this is code", None, prop_test)
         self.assertEqual(f'HTMLNode(code, this is code, children: None, {prop_test})', repr(node))
 
-    #LEAF NODE TESTING
+class TestLeafNode(unittest.TestCase):
     def test_leaf_values(self):
         leafnode = LeafNode(tag_bold, "This is bold!", 'href="https://www.google.com" target="_blank"')
         self.assertEqual("This is bold!", leafnode.value)
@@ -68,7 +68,7 @@ class TestHTMLNode(unittest.TestCase):
         leafnode = LeafNode(tag_hyperlink, "My GitHub!", {"href": "https://github.com/git-cst"})
         self.assertEqual('<a href="https://github.com/git-cst">My GitHub!</a>', leafnode.to_html())
 
-    #PARENT NODE TESTING
+class TestParentNode(unittest.TestCase):
     def test_parent_no_tag(self):
         testParentNode = ParentNode(
             None, 
