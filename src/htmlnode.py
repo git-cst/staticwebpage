@@ -1,14 +1,23 @@
-#HTML TAGS
-tag_paragraph = "p"
-tag_div = "div"
+#INLINE TAGS
 tag_span = "span"
 tag_hyperlink = "a"
 tag_bold = "b"
-tag_code = "code"
 tag_image = "img"
 tag_text = "text"
 tag_italicize = "i"
+
+#BLOCKLEVEL TAGS
+tag_paragraph = "p"
 tag_heading = "h"
+tag_blockquote = "blockquote"
+tag_unordered_list = "ul"
+tag_ordered_list = "ol"
+tag_list_element = "li"
+tag_code_block = "pre"
+tag_div = "div"
+
+#SHARED TAGS
+tag_code = "code"
 
 class HTMLNode:
     def __init__(self, tag=None, value=None, children=None, props=None):
