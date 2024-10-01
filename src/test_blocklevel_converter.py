@@ -98,14 +98,12 @@ Welcome to my **static site** generator.
 - Customizable
 
 ## Code Sample
-```python
-def hello_world():
-    print("Hello, World!")"""
+```python def hello_world():  print("Hello, World!")```"""
         self.assertEqual(1, 1)
         
     def test_nested_lists_blockquotes(self):
         markdown_text_2 = """### 2. Nested Lists and Blockquotes
-```markdown
+```markdown```
 # Nested Lists & Blockquotes
 
 ## Nested Lists
