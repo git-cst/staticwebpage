@@ -55,7 +55,7 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
         self.assertEqual(html_url.props, {"href": "https://docs.python.org/3/reference/"})
         #test node_with_image
         self.assertEqual(html_image.tag, "img")
-        self.assertEqual(html_image.value, None)
+        self.assertEqual(html_image.value, '')
         self.assertEqual(html_image.props, {"src": "github.com", "alt": "Github!"})
 
 if __name__ == "__main__":
