@@ -1,20 +1,21 @@
-from textnode import TextNode, text_type_bold
-from htmlnode import HTMLNode, tag_bold, LeafNode, tag_hyperlink, ParentNode, tag_paragraph, tag_div
-from inline_converter import *
+from textnode import *
+from htmlnode import *
+from inline_markdown import *
+import os
+
+def copy_to_public(destination_folder):
+    #CLEAN UP DESTINATION FOLDER
+    files_in_destination = os.listdir(destination_folder)
+    if len(files_in_destination) > 0:
+        for file in files_in_destination:
+            os.remove(rf'{destination_folder}/{file}')
+
+def get_files_to_copy(directory):
+    list_of_files = []
+
+    files_in_destination = os.listdir(directory)
 
 def main():
-    text = "This is **text** with an *italic* word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://docs.python.org/3/reference/)"
-    text_to_transform = TextNode(text, text_type_text)
-    textnodes = split_nodes_images(text_to_transform)
-    print(textnodes)
-    textnodes = split_nodes_links(textnodes)
-    print(textnodes)
-    textnodes = split_nodes_delimiter(textnodes, "**")
-    print(textnodes)
-    textnodes = split_nodes_delimiter(textnodes, "*")
-    print(textnodes)
-    textnodes = split_nodes_delimiter(textnodes, "`")
-    print(textnodes)
-
+    copy_to_public('./public')
 
 main()
