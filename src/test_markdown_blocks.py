@@ -3,6 +3,7 @@ from markdown_blocks import (
     markdown_to_html_node,
     markdown_to_blocks,
     block_to_block_type,
+    extract_title,
     block_type_paragraph,
     block_type_heading,
     block_type_code,
@@ -13,6 +14,33 @@ from markdown_blocks import (
 
 
 class TestMarkdownToHTML(unittest.TestCase):
+    def test_extract_header_from_markdown(self):
+        md = """
+# this is an h1
+
+this is paragraph text
+
+## this is an h2
+"""
+
+        self.assertEqual(
+            extract_title(md),
+            "this is an h1"
+        )
+
+        md = """
+this is paragraph text
+
+# this is an h1
+
+## this is an h2
+"""
+
+        self.assertEqual(
+            extract_title(md),
+            "this is an h1"
+        )
+
     def test_markdown_to_blocks(self):
         md = """
 This is **bolded** paragraph

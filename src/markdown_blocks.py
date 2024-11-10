@@ -9,6 +9,14 @@ block_type_quote = "quote"
 block_type_olist = "ordered_list"
 block_type_ulist = "unordered_list"
 
+def extract_title(markdown):
+    blocks = markdown.split("\n\n")
+    for block in blocks:
+        stripped_block: str = block.strip()
+        if stripped_block.startswith("# "):
+            return stripped_block.split("# ")[-1]
+        
+    raise Exception("No header found.")
 
 def markdown_to_blocks(markdown):
     blocks = markdown.split("\n\n")

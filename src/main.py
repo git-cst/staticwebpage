@@ -1,21 +1,18 @@
 from textnode import *
 from htmlnode import *
 from inline_markdown import *
-import os
+from provision_files import *
+from webpage_generator import *
+import os; import shutil
 
-def copy_to_public(destination_folder):
-    #CLEAN UP DESTINATION FOLDER
-    files_in_destination = os.listdir(destination_folder)
-    if len(files_in_destination) > 0:
-        for file in files_in_destination:
-            os.remove(rf'{destination_folder}/{file}')
-
-def get_files_to_copy(directory):
-    list_of_files = []
-
-    files_in_destination = os.listdir(directory)
+def extract_title(markdown):
+    pass
 
 def main():
-    copy_to_public('./public')
+    if os.path.exists('/home/csteenberg/projects/github.com/git-cst/static_web/public'):
+        shutil.rmtree('/home/csteenberg/projects/github.com/git-cst/static_web/public')
+    copy_files(source='/home/csteenberg/projects/github.com/git-cst/static_web/static', destination='/home/csteenberg/projects/github.com/git-cst/static_web/public')
+
+    generate_page_recursively(from_path='/home/csteenberg/projects/github.com/git-cst/static_web/content', template_path='/home/csteenberg/projects/github.com/git-cst/static_web/template.html', dest_path='/home/csteenberg/projects/github.com/git-cst/static_web/public')
 
 main()
